@@ -3,16 +3,9 @@ const fs = require("fs");
 const fs_extra = require("fs-extra");
 
 const processService = async (filename) => {
-  // const { id: filename } = req.query;
-  // console.log(id);
+  const isExists = fs.existsSync(`uploads/${filename}`);
 
-  const isExists = fs.existsSync(`uploads/${filename}.mp3`);
-  console.log("processing", isExists);
-
-  if (fs.existsSync(`uploads/${filename}`)) {
-    // spleeter command to separate vocals from the uploaded audio file
-    // using spawn method to initiate a child process
-
+  if (isExists) {
     console.log("processing");
     const trimmedFilename = filename?.toString()?.replace(".mp3", "");
 
