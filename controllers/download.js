@@ -1,14 +1,10 @@
 const fs = require("fs");
 
 const downloadVocalService = async (req, res) => {
-  const { id } = req.query;
-  // console.log(id);
+  const isExists = fs.existsSync(`output/${req.filename}/vocals.wav`);
 
-  const isExists = fs.existsSync(`output/${id}/vocals.wav`);
-  console.log(id, isExists);
-
-  if (fs.existsSync(`output/${id}/vocals.wav`)) {
-    res.sendFile(`output/${id}/vocals.wav`, {
+  if (isExists) {
+    res.sendFile(`output/${req.filename}/vocals.wav`, {
       root: __dirname.replace("controllers", ""),
     });
   } else {
@@ -20,14 +16,10 @@ const downloadVocalService = async (req, res) => {
 };
 
 const downloadMusicService = async (req, res) => {
-  const { id } = req.query;
-  // console.log(id);
+  const isExists = fs.existsSync(`output/${req.filename}/vocals.wav`);
 
-  const isExists = fs.existsSync(`output/${id}/vocals.wav`);
-  console.log(id, isExists);
-
-  if (fs.existsSync(`output/${id}/accompaniment.wav`)) {
-    res.sendFile(`output/${id}/accompaniment.wav`, {
+  if (isExists) {
+    res.sendFile(`output/${req.filename}/accompaniment.wav`, {
       root: __dirname.replace("controllers", ""),
     });
   } else {

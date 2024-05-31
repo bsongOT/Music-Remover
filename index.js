@@ -34,7 +34,6 @@ app.get("/", (req, res) => {
 });
 
 app.post("/api/upload", upload.any("file"), uploadService);
-app.get("/api/polling", pollingService);
 app.get("/api/download/vocal", downloadVocalService);
 app.get("/api/download/music", downloadMusicService);
 

@@ -3,8 +3,6 @@ const fs = require("fs");
 const { processService } = require("./process");
 
 const uploadService = async (req, res, next) => {
-  // const filename = req.headers["file-name"];
-  // console.log(req.body, "here");
   const filename = req.files[0].filename;
 
   await processService(filename);
