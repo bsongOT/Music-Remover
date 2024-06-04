@@ -3,27 +3,12 @@ const fs = require("fs");
 const { processService } = require("./process");
 
 const uploadService = async (req, res, next) => {
-  // const filename = req.headers["file-name"];
-  // console.log(req.body, "here");
-  const { chunk, chunkId, totalChunks, filename } = req.body;
-  console.log(chunkId, totalChunks);
+  const filename = req.files[0].filename;
 
-  fs.appendFileSync(`./uploads/${filename}`, Buffer.from(chunk));
-
-  if (parseInt(chunkId) === parseInt(totalChunks)) {
-    console.log(filename);
-    await processService(filename);
-    res.status(200).json({
-      message: "File uploaded successfully",
-      processing: true,
-    });
-  } else {
-    console.log("Chunk recieved");
-    res.status(200).json({
-      message: "Chunk recieved successfully",
-      processing: false,
-    });
-  }
+  await processService(filename);
+  res.status(200).json({
+    message: "File uploaded successfully"
+  });
 };
 
 module.exports = uploadService;
