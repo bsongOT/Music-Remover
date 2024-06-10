@@ -5,8 +5,7 @@ const uploadService = async (req, res) => {
   const filename = req.files[0].filename;
   const simpleName = filename.slice(0, filename.lastIndexOf('.'));
 
-  //await processService(filename);
-  await downloadMusicService(simpleName, res);
+  await processService(filename);
 };
 
 module.exports = uploadService;
