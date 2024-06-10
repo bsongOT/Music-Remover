@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const multer = require('multer')
-//const fileUpload = require("express-fileupload");
 
 const storage = multer.diskStorage({
   filename: function (req, file, cb) {
@@ -15,7 +14,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage })
 
 const uploadService = require("./controllers/upload");
-const { pollingService } = require("./controllers/polling");
 const {
   downloadMusicService,
   downloadVocalService,
@@ -34,8 +32,8 @@ app.get("/", (req, res) => {
 });
 
 app.post("/api/upload", upload.any("file"), uploadService);
-app.get("/api/download/vocal", downloadVocalService);
-app.get("/api/download/music", downloadMusicService);
+//app.get("/api/download/vocal", downloadVocalService);
+//app.get("/api/download/music", downloadMusicService);
 
 app.listen(port, () =>
   console.log(`Vocals Splitter listening on port 

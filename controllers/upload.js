@@ -1,14 +1,12 @@
-const shortid = require("shortid");
-const fs = require("fs");
+const { downloadMusicService } = require("./download");
 const { processService } = require("./process");
 
-const uploadService = async (req, res, next) => {
+const uploadService = async (req, res) => {
   const filename = req.files[0].filename;
+  const simpleName = filename.slice(0, filename.lastIndexOf('.'));
 
-  await processService(filename);
-  res.status(200).json({
-    message: "File uploaded successfully"
-  });
+  //await processService(filename);
+  await downloadMusicService(simpleName, res);
 };
 
 module.exports = uploadService;
