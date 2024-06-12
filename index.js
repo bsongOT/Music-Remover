@@ -1,13 +1,15 @@
 const express = require("express");
 const cors = require("cors");
 const multer = require('multer')
+const fs = require('fs');
 
 const storage = multer.diskStorage({
   filename: function (req, file, cb) {
     cb(null, file.originalname)
   },
   destination: function (req, file, cb) {
-    cb(null, './uploads')
+    if (!fs.existsSync("./workspace")) fs.mkdirSync("./workspace");
+    cb(null, './workspace')
   },
 })
 
@@ -27,7 +29,6 @@ app.set('view engine', 'ejs');
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  // send html file index.html stored in root directory
   res.sendFile(__dirname + "/index.html");
 });
 

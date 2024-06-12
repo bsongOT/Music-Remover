@@ -3,7 +3,7 @@ const fs = require("fs");
 
 const processService = (filename) => {
   return new Promise(resolve => {
-    const isExists = fs.existsSync(`uploads/${filename}`);
+    const isExists = fs.existsSync(`workspace/${filename}`);
 
     if (!isExists) return resolve("File Not Found")
 
@@ -14,8 +14,8 @@ const processService = (filename) => {
       "-p",
       "spleeter:2stems-16kHz",
       "-o",
-      "output/",
-      `uploads/${filename}`,
+      "workspace/",
+      `workspace/${filename}`,
     ]);
 
     // collect data from script
