@@ -1,8 +1,10 @@
-const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
-const ffmpeg = require("fluent-ffmpeg");
+import {path} from "@ffmpeg-installer/ffmpeg";
+import ffmpeg from "fluent-ffmpeg"
 
-const convertToMP3 = (path) => new Promise(resolve => {
-    ffmpeg(path)
+const ffmpegPath = path;
+
+const convertToMP3 = (_path) => new Promise(resolve => {
+    ffmpeg(_path)
     .setFfmpegPath(ffmpegPath)
     .toFormat("mp3")
     .on('end', () => {
@@ -11,6 +13,4 @@ const convertToMP3 = (path) => new Promise(resolve => {
     .save("workspace/mr.mp3")
 })
 
-module.exports = {
-    convertToMP3
-}
+export default convertToMP3

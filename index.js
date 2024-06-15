@@ -1,42 +1,37 @@
-const express = require("express");
-const cors = require("cors");
-const multer = require('multer')
-const fs = require('fs');
+import express, { json } from "express";
+import cors from "cors";
+import multer, { diskStorage } from 'multer';
+import { existsSync, mkdirSync } from 'fs';
+import convert from "./controllers/convert.js";
+import fetchMR from "./controllers/fetchMR.js";
+import { rootDir } from "./config.js";
 
-const storage = multer.diskStorage({
+const storage = diskStorage({
   filename: function (req, file, cb) {
     cb(null, file.originalname)
   },
   destination: function (req, file, cb) {
-    if (!fs.existsSync("./workspace")) fs.mkdirSync("./workspace");
+    if (!existsSync("./workspace")) mkdirSync("./workspace");
     cb(null, './workspace')
   },
 })
 
 const upload = multer({ storage })
 
-const uploadService = require("./controllers/upload");
-const {
-  downloadMusicService,
-  downloadVocalService,
-} = require("./controllers/download");
-
 const app = express();
 const port = 8080;
 
 app.use(cors());
 app.set('view engine', 'ejs');
-app.use(express.json());
+app.use(json());
 
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/index.html");
+  res.sendFile(rootDir + "/index.html");
 });
 
-app.post("/api/upload", upload.any("file"), uploadService);
-app.get("/api/download/vocal", downloadVocalService);
-app.get("/api/download/music", downloadMusicService);
+app.post("/convert", upload.any("file"), convert);
+app.get("/fetch-mr", fetchMR);
 
 app.listen(port, () =>
-  console.log(`Vocals Splitter listening on port 
-${port}!`)
+  console.log(`Vocals Splitter listening on port ${port}!`)
 );

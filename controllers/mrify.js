@@ -1,7 +1,7 @@
-const { spawn } = require("child_process");
-const fs = require("fs");
+import { spawn } from "child_process";
+import fs from "fs";
 
-const processService = (filename) => {
+const mrify = (filename) => {
   return new Promise(resolve => {
     const isExists = fs.existsSync(`workspace/${filename}`);
 
@@ -18,10 +18,6 @@ const processService = (filename) => {
       `workspace/${filename}`,
     ]);
 
-    // collect data from script
-    spleeter.stdout.on("data", (data) => {
-      console.log(`stdout:\n${data}`);
-    });
     spleeter.stderr.on("data", (data) => {
       console.log(`stdout: ${data}`);
     });
@@ -34,6 +30,4 @@ const processService = (filename) => {
   })
 };
 
-module.exports = {
-  processService,
-};
+export default mrify;
